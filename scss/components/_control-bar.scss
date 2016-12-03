@@ -133,6 +133,29 @@
     .oo-live-nonclickable {
       cursor: default;
     }
+
+    .oo-speed {
+      //margin-top: 12px;
+      position: absolute;
+      left: 300px;
+      top: 47px;
+      font-size: 16px;
+    }
+
+    ul {
+      list-style: none;
+      outline: none;
+    }
+
+    .oo-popup-menu {
+      position: relative;
+      left: 0px;
+      top: -30px;
+    }
+
+    .oo-disable {
+      display: none;
+    }
   }
 }
 

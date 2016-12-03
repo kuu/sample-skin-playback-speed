@@ -11,8 +11,13 @@ var React = require('react'),
     Popover = require('../views/popover'),
     VideoQualityPanel = require('./videoQualityPanel'),
     ClosedCaptionPopover = require('./closed-caption/closedCaptionPopover'),
-    Logo = require('./logo');
+    Logo = require('./logo'),
     Icon = require('./icon');
+
+var ReactMenu = require('rc-menu');
+var Menu = ReactMenu.default;
+var SubMenu = ReactMenu.SubMenu;
+var MenuItem = ReactMenu.Item;
 
 var ControlBar = React.createClass({
   getInitialState: function() {
@@ -22,6 +27,7 @@ var ControlBar = React.createClass({
     this.moreOptionsItems = null;
 
     return {
+      openKeys: [],
       currentVolumeHead: 0
     };
   },
@@ -158,6 +164,30 @@ var ControlBar = React.createClass({
       this.toggleCaptionPopover();
       this.closeQualityPopover();
     }
+  },
+
+  handlePlaybackRate: function (data) {
+    var rate = parseFloat(data.key);
+    if (isNaN(rate)) {
+      rate = CONSTANTS.TATE.MIN_PLAYBACK_RATE;
+    }
+    this.props.controller.setPlaybackRate(rate);
+    this.onOpenChange([]);
+  },
+
+  onOpenChange: function (keys) {
+    this.setState({
+      openKeys: keys
+    }, function () {
+      var items = document.querySelectorAll('.oo-popup-menu');
+      for (var i = 0; i < items.length; i++) {
+        if (keys.length === 0) {
+          items[i].classList.add('oo-disable');
+        } else {
+          items[i].classList.remove('oo-disable');
+        }
+      }
+    });
   },
 
   //TODO(dustin) revisit this, doesn't feel like the "react" way to do this.
@@ -445,6 +475,22 @@ var ControlBar = React.createClass({
 
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
+
+    finalControlBarItems.push(
+      <Menu className="oo-speed oo-control-bar-item" key="speed"
+        onSelect={this.handlePlaybackRate}
+        onOpenChange={this.onOpenChange}
+        openKeys={this.state.openKeys}
+        mode="inline"
+        openAnimation="slide-up"
+        openSubMenuOnMouseEnter={false}
+        closeSubMenuOnMouseLeave={false} >
+        <SubMenu title={<span>速度</span>} key="1">
+          <MenuItem className="oo-popup-menu" key="1.0">標準</MenuItem>
+          <MenuItem className="oo-popup-menu" key="1.4">1.4</MenuItem>
+        </SubMenu>
+      </Menu>
+    );
 
     return finalControlBarItems;
   },

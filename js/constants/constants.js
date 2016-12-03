@@ -7,6 +7,8 @@ module.exports = {
     PLAYING : "playing",
     PAUSE : "pause",
     END : "end",
+    MAX_PLAYBACK_RATE: 10.0,
+    MIN_PLAYBACK_RATE: 0.1,
     ERROR : "error"
   },
 
