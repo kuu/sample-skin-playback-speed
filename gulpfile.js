@@ -33,7 +33,8 @@ var path = {
 var devServer = {
   host: '0.0.0.0',
   port: 4444,
-  file: 'sample.html',
+  file: './build/index.html',
+  root: './build',
   livereloadPort: 35729
 
 };
@@ -204,6 +205,7 @@ gulp.task('server', function() {
       port: devServer.livereloadPort
     },
     host: devServer.host,
+    root: devServer.root,
     fallback: devServer.file
   });
 });

@@ -1717,14 +1717,15 @@
       position: absolute;
       left: 300px;
       top: 47px;
-      font-size: 16px; }
+      font-size: 16px;
+      text-align: left; }
     .oo-player-container .oo-control-bar .oo-control-bar-items-wrapper ul {
       list-style: none;
       outline: none; }
     .oo-player-container .oo-control-bar .oo-control-bar-items-wrapper .oo-popup-menu {
       position: relative;
-      left: 0px;
-      top: -30px; }
+      left: 50px;
+      top: -25px; }
     .oo-player-container .oo-control-bar .oo-control-bar-items-wrapper .oo-disable {
       display: none; }
 
