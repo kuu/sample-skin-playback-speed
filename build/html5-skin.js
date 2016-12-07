@@ -2186,25 +2186,27 @@ var ControlBar = React.createClass({displayName: "ControlBar",
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
 
-    var currentPlaybackRate = this.props.controller.getPlaybackRate();
-    var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
-    var currentPlaybackRateJSX = React.createElement("span", null, '速度（' + currentPlaybackRateStr + '）');
+    if (!Utils.isAndroid()){
+      var currentPlaybackRate = this.props.controller.getPlaybackRate();
+      var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
+      var currentPlaybackRateJSX = React.createElement("span", null, '速度（' + currentPlaybackRateStr + '）');
 
-    finalControlBarItems.push(
-      React.createElement(Menu, {className: "oo-speed oo-control-bar-item", key: "speed", 
-        onSelect: this.handlePlaybackRate, 
-        onOpenChange: this.onOpenChange, 
-        openKeys: this.state.openKeys, 
-        mode: "horizontal", 
-        openAnimation: "slide-up", 
-        openSubMenuOnMouseEnter: false, 
-        closeSubMenuOnMouseLeave: false}, 
-        React.createElement(SubMenu, {title: currentPlaybackRateJSX, key: "1"}, 
-          React.createElement(MenuItem, {className: "oo-popup-menu", key: "1.0"}, "標準"), 
-          React.createElement(MenuItem, {className: "oo-popup-menu", key: "1.4"}, "1.4")
+      finalControlBarItems.push(
+        React.createElement(Menu, {className: "oo-speed oo-control-bar-item", key: "speed", 
+          onSelect: this.handlePlaybackRate, 
+          onOpenChange: this.onOpenChange, 
+          openKeys: this.state.openKeys, 
+          mode: "horizontal", 
+          openAnimation: "slide-up", 
+          openSubMenuOnMouseEnter: false, 
+          closeSubMenuOnMouseLeave: false}, 
+          React.createElement(SubMenu, {title: currentPlaybackRateJSX, key: "1"}, 
+            React.createElement(MenuItem, {className: "oo-popup-menu", key: "1.0"}, "標準"), 
+            React.createElement(MenuItem, {className: "oo-popup-menu", key: "1.4"}, "1.4")
+          )
         )
-      )
-    );
+      );
+    }
 
     return finalControlBarItems;
   },
@@ -5347,7 +5349,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
 
   if (OO.publicApi && OO.publicApi.VERSION) {
     // This variable gets filled in by the build script
-    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "8fce756d73c22e58d532d9b56b20d5018504cf36"};
+    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "1f988e221a93b91185df3a7a5a24938e919dec5b"};
   }
 
   var Html5Skin = function (mb, id) {

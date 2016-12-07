@@ -476,25 +476,27 @@ var ControlBar = React.createClass({
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
 
-    var currentPlaybackRate = this.props.controller.getPlaybackRate();
-    var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
-    var currentPlaybackRateJSX = <span>{'速度（' + currentPlaybackRateStr + '）'}</span>;
+    if (!Utils.isAndroid()){
+      var currentPlaybackRate = this.props.controller.getPlaybackRate();
+      var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
+      var currentPlaybackRateJSX = <span>{'速度（' + currentPlaybackRateStr + '）'}</span>;
 
-    finalControlBarItems.push(
-      <Menu className="oo-speed oo-control-bar-item" key="speed"
-        onSelect={this.handlePlaybackRate}
-        onOpenChange={this.onOpenChange}
-        openKeys={this.state.openKeys}
-        mode="horizontal"
-        openAnimation="slide-up"
-        openSubMenuOnMouseEnter={false}
-        closeSubMenuOnMouseLeave={false} >
-        <SubMenu title={currentPlaybackRateJSX} key="1">
-          <MenuItem className="oo-popup-menu" key="1.0">標準</MenuItem>
-          <MenuItem className="oo-popup-menu" key="1.4">1.4</MenuItem>
-        </SubMenu>
-      </Menu>
-    );
+      finalControlBarItems.push(
+        <Menu className="oo-speed oo-control-bar-item" key="speed"
+          onSelect={this.handlePlaybackRate}
+          onOpenChange={this.onOpenChange}
+          openKeys={this.state.openKeys}
+          mode="horizontal"
+          openAnimation="slide-up"
+          openSubMenuOnMouseEnter={false}
+          closeSubMenuOnMouseLeave={false} >
+          <SubMenu title={currentPlaybackRateJSX} key="1">
+            <MenuItem className="oo-popup-menu" key="1.0">標準</MenuItem>
+            <MenuItem className="oo-popup-menu" key="1.4">1.4</MenuItem>
+          </SubMenu>
+        </Menu>
+      );
+    }
 
     return finalControlBarItems;
   },
