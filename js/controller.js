@@ -443,7 +443,6 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
         this.state.pauseAnimationDisabled = false;
         this.state.screenToShow = CONSTANTS.SCREEN.PLAYING_SCREEN;
         this.state.playerState = CONSTANTS.STATE.PLAYING;
-        this.state.playbackRate = 1.0;
         this.setClosedCaptionsLanguage();
         this.state.mainVideoElement.removeClass('oo-blur');
         this.state.isInitialPlay = false;
@@ -456,7 +455,6 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
         this.state.pluginsClickElement.removeClass("oo-showing");
         if (this.state.currentAdsInfo.currentAdItem !== null) {
           this.state.playerState = CONSTANTS.STATE.PLAYING;
-          this.state.playbackRate = 1.0;
           //Set the screen to ad screen in case current screen does not involve video playback, such as discovery
           this.state.screenToShow = CONSTANTS.SCREEN.AD_SCREEN;
           this.renderSkin();
@@ -648,7 +646,6 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
         this.state.isPlayingAd = true;
         this.state.currentAdsInfo.currentAdItem = adItem;
         this.state.playerState = CONSTANTS.STATE.PLAYING;
-        this.state.playbackRate = 1.0;
         if (adItem.isLive) {
           this.state.adStartTime = new Date().getTime();
         } else {
@@ -1155,10 +1152,18 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
     setPlaybackRate: function(rate) {
       var playbackRate = Math.max(Math.min(rate, CONSTANTS.STATE.MAX_PLAYBACK_RATE), CONSTANTS.STATE.MIN_PLAYBACK_RATE);
       if (this.state.playbackRate !== playbackRate) {
-        console.log('STATE.NORMAL_SPEED');
         document.querySelector('video').playbackRate = playbackRate;
         this.state.playbackRate = playbackRate;
       }
+    },
+
+    getPlaybackRate: function() {
+      var videoElement = document.querySelector('video');
+      var state = this.state;
+      if (videoElement.playbackRate !== state.playbackRate) {
+        videoElement.playbackRate = state.playbackRate;
+      }
+      return state.playbackRate;
     },
 
     seek: function(seconds) {

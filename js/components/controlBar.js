@@ -476,7 +476,7 @@ var ControlBar = React.createClass({
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
 
-    var currentPlaybackRate = this.props.controller.state.playbackRate;
+    var currentPlaybackRate = this.props.controller.getPlaybackRate();
     var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
     var currentPlaybackRateJSX = <span>{'速度（' + currentPlaybackRateStr + '）'}</span>;
 

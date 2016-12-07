@@ -2186,7 +2186,7 @@ var ControlBar = React.createClass({displayName: "ControlBar",
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
 
-    var currentPlaybackRate = this.props.controller.state.playbackRate;
+    var currentPlaybackRate = this.props.controller.getPlaybackRate();
     var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
     var currentPlaybackRateJSX = React.createElement("span", null, '速度（' + currentPlaybackRateStr + '）');
 
@@ -5347,7 +5347,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
 
   if (OO.publicApi && OO.publicApi.VERSION) {
     // This variable gets filled in by the build script
-    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "cb04016676d6b5e308858622b8aa0d6570623977"};
+    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "8fce756d73c22e58d532d9b56b20d5018504cf36"};
   }
 
   var Html5Skin = function (mb, id) {
@@ -5769,7 +5769,6 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
         this.state.pauseAnimationDisabled = false;
         this.state.screenToShow = CONSTANTS.SCREEN.PLAYING_SCREEN;
         this.state.playerState = CONSTANTS.STATE.PLAYING;
-        this.state.playbackRate = 1.0;
         this.setClosedCaptionsLanguage();
         this.state.mainVideoElement.removeClass('oo-blur');
         this.state.isInitialPlay = false;
@@ -5782,7 +5781,6 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
         this.state.pluginsClickElement.removeClass("oo-showing");
         if (this.state.currentAdsInfo.currentAdItem !== null) {
           this.state.playerState = CONSTANTS.STATE.PLAYING;
-          this.state.playbackRate = 1.0;
           //Set the screen to ad screen in case current screen does not involve video playback, such as discovery
           this.state.screenToShow = CONSTANTS.SCREEN.AD_SCREEN;
           this.renderSkin();
@@ -5974,7 +5972,6 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
         this.state.isPlayingAd = true;
         this.state.currentAdsInfo.currentAdItem = adItem;
         this.state.playerState = CONSTANTS.STATE.PLAYING;
-        this.state.playbackRate = 1.0;
         if (adItem.isLive) {
           this.state.adStartTime = new Date().getTime();
         } else {
@@ -6481,10 +6478,18 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
     setPlaybackRate: function(rate) {
       var playbackRate = Math.max(Math.min(rate, CONSTANTS.STATE.MAX_PLAYBACK_RATE), CONSTANTS.STATE.MIN_PLAYBACK_RATE);
       if (this.state.playbackRate !== playbackRate) {
-        console.log('STATE.NORMAL_SPEED');
         document.querySelector('video').playbackRate = playbackRate;
         this.state.playbackRate = playbackRate;
       }
+    },
+
+    getPlaybackRate: function() {
+      var videoElement = document.querySelector('video');
+      var state = this.state;
+      if (videoElement.playbackRate !== state.playbackRate) {
+        videoElement.playbackRate = state.playbackRate;
+      }
+      return state.playbackRate;
     },
 
     seek: function(seconds) {
