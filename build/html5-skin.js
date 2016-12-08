@@ -2186,7 +2186,9 @@ var ControlBar = React.createClass({displayName: "ControlBar",
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
 
-    if (!Utils.isAndroid()){
+    if (Utils.isAndroid() && Utils.isChrome()){
+      // Nop
+    } else {
       var currentPlaybackRate = this.props.controller.getPlaybackRate();
       var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
       var currentPlaybackRateJSX = React.createElement("span", null, '速度（' + currentPlaybackRateStr + '）');
@@ -5349,7 +5351,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
 
   if (OO.publicApi && OO.publicApi.VERSION) {
     // This variable gets filled in by the build script
-    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "1f988e221a93b91185df3a7a5a24938e919dec5b"};
+    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "ec942834051b3e718b3e25d5fe9a32df79f78657"};
   }
 
   var Html5Skin = function (mb, id) {
