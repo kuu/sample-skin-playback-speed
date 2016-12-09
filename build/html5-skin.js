@@ -4521,7 +4521,7 @@ var Utils = {
     if (this.isAndroid() && this.isChrome()) {
       return false;
     }
-    if (window.navigator.userAgent.match(/Windows NT 6.[123]/)) {
+    if (this.isIE() && window.navigator.userAgent.match(/Windows NT 6.[123]/)) {
       return false;
     }
     return true;
@@ -5359,7 +5359,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
 
   if (OO.publicApi && OO.publicApi.VERSION) {
     // This variable gets filled in by the build script
-    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "0bbfba05b32d79592a3cab8bd6b42cc073467bff"};
+    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "b22ab02631bbcd96e8e439d9929c71b0c9422a51"};
   }
 
   var Html5Skin = function (mb, id) {

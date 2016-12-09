@@ -206,7 +206,7 @@ var Utils = {
     if (this.isAndroid() && this.isChrome()) {
       return false;
     }
-    if (window.navigator.userAgent.match(/Windows NT 6.[123]/)) {
+    if (this.isIE() && window.navigator.userAgent.match(/Windows NT 6.[123]/)) {
       return false;
     }
     return true;
