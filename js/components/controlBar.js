@@ -476,9 +476,7 @@ var ControlBar = React.createClass({
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
 
-    if (Utils.isAndroid() && Utils.isChrome()){
-      // Nop
-    } else {
+    if (this.props.controller.state.playbackRateSupported) {
       var currentPlaybackRate = this.props.controller.getPlaybackRate();
       var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
       var currentPlaybackRateJSX = <span>{'速度（' + currentPlaybackRateStr + '）'}</span>;

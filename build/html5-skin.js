@@ -2186,9 +2186,7 @@ var ControlBar = React.createClass({displayName: "ControlBar",
       finalControlBarItems.push(controlItemTemplates[collapsedControlBarItems[k].name]);
     }
 
-    if (Utils.isAndroid() && Utils.isChrome()){
-      // Nop
-    } else {
+    if (this.props.controller.state.playbackRateSupported) {
       var currentPlaybackRate = this.props.controller.getPlaybackRate();
       var currentPlaybackRateStr = currentPlaybackRate === 1.0 ? '標準' : String(currentPlaybackRate);
       var currentPlaybackRateJSX = React.createElement("span", null, '速度（' + currentPlaybackRateStr + '）');
@@ -4519,6 +4517,16 @@ var Utils = {
     return !!window.navigator.userAgent.match(/MSIE 10/);
   },
 
+  isPlaybackRateSupported: function () {
+    if (this.isAndroid() && this.isChrome()) {
+      return false;
+    }
+    if (window.navigator.userAgent.match(/Windows NT 6.[123]/)) {
+      return false;
+    }
+    return true;
+  },
+
   /**
   * Determine the best language to use for localization
   *
@@ -5351,7 +5359,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
 
   if (OO.publicApi && OO.publicApi.VERSION) {
     // This variable gets filled in by the build script
-    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "ec942834051b3e718b3e25d5fe9a32df79f78657"};
+    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "0bbfba05b32d79592a3cab8bd6b42cc073467bff"};
   }
 
   var Html5Skin = function (mb, id) {
@@ -5369,6 +5377,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
       "screenToShow": null,
       "playerState": null,
       "playbackRate": 1.0,
+      "playbackRateSupported": Utils.isPlaybackRateSupported(),
       "discoveryData": null,
       "isPlayingAd": false,
       "adOverlayUrl": null,

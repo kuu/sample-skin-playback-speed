@@ -39,6 +39,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
       "screenToShow": null,
       "playerState": null,
       "playbackRate": 1.0,
+      "playbackRateSupported": Utils.isPlaybackRateSupported(),
       "discoveryData": null,
       "isPlayingAd": false,
       "adOverlayUrl": null,

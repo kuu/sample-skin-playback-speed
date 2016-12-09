@@ -202,6 +202,16 @@ var Utils = {
     return !!window.navigator.userAgent.match(/MSIE 10/);
   },
 
+  isPlaybackRateSupported: function () {
+    if (this.isAndroid() && this.isChrome()) {
+      return false;
+    }
+    if (window.navigator.userAgent.match(/Windows NT 6.[123]/)) {
+      return false;
+    }
+    return true;
+  },
+
   /**
   * Determine the best language to use for localization
   *
