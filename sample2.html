@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Playback Speed Slector Demo</title>
+  <script src="//player.ooyala.com/static/v4/stable/4.10.4/core.min.js"></script>
+  <script src="//player.ooyala.com/static/v4/stable/4.10.4/video-plugin/main_html5.min.js"></script>
+  <script src="//player.ooyala.com/static/v4/stable/4.10.4/video-plugin/bit_wrapper.min.js"></script>
+  <script src="html5-skin.js"></script>
+  <link rel="stylesheet" href="html5-skin.css"/>
+</head>
+
+<body>
+<div id="container" style="width:640px;height:360px"></div>
+<script src="ua-parser.min.js"></script>
+<script>
+  function toNumber(str) {
+    if (typeof str === 'number') {
+      return str;
+    }
+    var num = parseInt(str);
+    if (isNaN(num)) {
+      return 0;
+    }
+    return num;
+  }
+
+  function getEncodingPriority(info) {
+    var os = info.os;
+    var browser = info.browser;
+    if (os.name === 'Windows' && browser.name === 'IE' && toNumber(os.version) < 10) {
+      return ['hls', 'hds', 'mp4', 'dash', 'dash_drm', 'hls_drm'];
+    }
+    return null;
+  }
+
+  var parser = new UAParser();
+  var priorityList = getEncodingPriority(parser.getResult());
+
+  var playerParam = {
+    pcode: 'EwcGkyOsMGUf1C3NgeX7Wd0su8Q0',
+    playerBrandingId: 'f819934325284facb048c0a6d18ab8d3',
+    platform: 'html5',
+    debug:true,
+    skin: {
+      'config': 'skin.json'
+    },
+    encodingPriority: priorityList
+  };
+  OO.ready(function() {
+    window.pp = OO.Player.create('container', 'F4Z3g2ODE6NnKWS1O7I30vKoOsiOTC_j', playerParam);
+  });
+</script>
+
+</body>
+</html>

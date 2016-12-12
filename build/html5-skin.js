@@ -5359,7 +5359,7 @@ OO.plugin("Html5Skin", function (OO, _, $, W) {
 
   if (OO.publicApi && OO.publicApi.VERSION) {
     // This variable gets filled in by the build script
-    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "b22ab02631bbcd96e8e439d9929c71b0c9422a51"};
+    OO.publicApi.VERSION.skin = {"releaseVersion": "4.10.4", "rev": "ff38cac3272e2cd4d3bfa5ce254a9f042abbc463"};
   }
 
   var Html5Skin = function (mb, id) {
