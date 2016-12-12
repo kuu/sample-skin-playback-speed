@@ -29,7 +29,7 @@
     var os = info.os;
     var browser = info.browser;
     if (os.name === 'Windows' && browser.name === 'IE' && toNumber(os.version) < 10) {
-      return ['hls', 'hds', 'mp4', 'dash', 'dash_drm', 'hls_drm'];
+      return ['hds', 'hls', 'mp4', 'dash', 'dash_drm', 'hls_drm'];
     }
     return null;
   }
@@ -48,7 +48,7 @@
     encodingPriority: priorityList
   };
   OO.ready(function() {
-    window.pp = OO.Player.create('container', 'F4Z3g2ODE6NnKWS1O7I30vKoOsiOTC_j', playerParam);
+    window.pp = OO.Player.create('container', '80M2E3ODE6D_rsvLl3Yk3X955fAcqWUE', playerParam);
   });
 </script>
 
