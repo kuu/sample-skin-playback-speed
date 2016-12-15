@@ -29,6 +29,9 @@
   function getEncodingPriority(info) {
     var os = info.os;
     var browser = info.browser;
+    if (os.name === 'Android') {
+      return ['hls', 'mp4', 'dash_drm', 'hls_drm', 'hds'];
+    }
     if (os.name === 'Windows' && browser.name === 'IE' && toNumber(os.version) < 10) {
       return ['hds', 'mp4', 'dash', 'dash_drm', 'hls_drm'];
     }
